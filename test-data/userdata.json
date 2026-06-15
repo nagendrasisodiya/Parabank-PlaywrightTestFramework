@@ -1,0 +1,14 @@
+{
+  "firstName": "ram",
+  "lastName": "singh",
+  "address": {
+    "street": "gokulpura , Jaipur, Rajasthan",
+    "city": "jaipur",
+    "state": "Rajasthan",
+    "zipCode": "302033"
+  },
+  "phoneNumber": "7719827084",
+  "ssn": "12345677890",
+  "username": "ramsingh",
+  "password": "12345"
+}
