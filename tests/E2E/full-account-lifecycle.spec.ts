@@ -53,6 +53,7 @@ test('Full lifecycle — Register, Login, Create Account, Transfer, Validate via
     //transferring fund account_01 to account_02
     const fundTransferObj :FundTransfer= new FundTransfer(page)
     await fundTransferObj.transferFund("100", accountNo_01, account_02)
+    await fundTransferObj.transferStatus()
     await fundTransferObj.verifyFundTransfer("$100.00", accountNo_01, account_02)
 
     time=new Date().getTime()

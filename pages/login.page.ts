@@ -32,7 +32,7 @@ class LoginUser{
         await this.password.fill(password)
         await this.loginBTN.click()
 
-        await this.page.waitForLoadState('domcontentloaded')
+        await this.page.waitForLoadState('networkidle')
         await expect(this.loginSuccessMsg).toHaveText('Welcome')
     }
     // for negative test cases
@@ -44,7 +44,7 @@ class LoginUser{
         await this.password.fill(password)
         await this.loginBTN.click()
 
-        await this.page.waitForLoadState('domcontentloaded')
+        await this.page.waitForLoadState('networkidle')
     }
     // for empty username password filed test
     async emptyAttemptLogin(webUrl:string){

@@ -9,6 +9,6 @@ export async function getAccounts(request, customerId:number){
     })
     expect(customerAccountResponse.status()).toBe(200)
     let accounts=await customerAccountResponse.json()
-    console.log(accounts)
+    // console.log(accounts)
     return accounts
 }

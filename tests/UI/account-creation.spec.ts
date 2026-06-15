@@ -45,7 +45,7 @@ import {getAccounts} from "../../utils/getAccounts";
          newAccountNo=await accountCreationObj.openNewAccount(accountType)
          let time=new Date().getTime()
          await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/account-creation-UI${time}.png`})
-         console.log(newAccountNo)
+         // console.log(newAccountNo)
      })
 
     // verifying new account exist in api response

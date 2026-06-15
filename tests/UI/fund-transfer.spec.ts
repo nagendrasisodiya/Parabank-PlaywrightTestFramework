@@ -53,6 +53,8 @@ test.describe.serial("Transfer Funds Successfully Between Accounts", () => {
         accountNo_02 = accounts[1].id.toString()
 
         await fundTransferObj.transferFund(inputAmount, accountNo_01, accountNo_02)
+        await fundTransferObj.transferStatus()
+
         let time=new Date().getTime()
         await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/fund-transfer-UI${time}.png`})
     })

@@ -36,10 +36,10 @@ test("Validate success message displayed after account creation", async ({page})
     // loging in
     await loginObj.login("https://parabank.parasoft.com", username, password)
     // creating new CHECKING account
-    let accNo:number=await accountCreationObj.openNewAccount(accountType)
+    await accountCreationObj.openNewAccount(accountType)
     let uiMsg:string=await accountCreationObj.captureConformationMsg()
     expect(uiMsg).toContain('Congratulations, your account is now open.');
-    console.log(`New Account id: ${accNo}`)
-    console.log(`success msg after new account creation: ${uiMsg}`)
+    // console.log(`New Account id: ${accNo}`)
+    // console.log(`success msg after new account creation: ${uiMsg}`)
 })
 

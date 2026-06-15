@@ -14,7 +14,6 @@ test.describe.serial("Validate Before/After Balances on Fund Transfer", ()=>{
     // shared state across all tests
     let username: string
     let password: string
-    let page: Page
     let sourceAccount: string
     let destinationAccount: string
     // account balance before transaction
@@ -32,7 +31,7 @@ test.describe.serial("Validate Before/After Balances on Fund Transfer", ()=>{
         password = `${userdata.password}${suffix}`
 
         const context = await browser.newContext()
-        page = await context.newPage()
+        let page = await context.newPage()
 
         const regObj = new RegisterUserPage(page, userdata)
         await regObj.registerUser("https://parabank.parasoft.com", username, password)
@@ -41,6 +40,9 @@ test.describe.serial("Validate Before/After Balances on Fund Transfer", ()=>{
         await accountCreationObj.openNewAccount("Savings")
 
         await regObj.logOutUser()
+
+        await page.close()
+        await context.close()
     })
 
     test("Capture before-transfer balances via API for both accounts", async ({request})=>{
@@ -72,7 +74,7 @@ test.describe.serial("Validate Before/After Balances on Fund Transfer", ()=>{
         const fundTransferObj:FundTransfer = new FundTransfer(page)
         await loginObj.login("https://parabank.parasoft.com", username, password)
         await fundTransferObj.transferFund(amount, sourceAccount, destinationAccount)
-
+        await fundTransferObj.transferStatus()
         // account balance fetching after transaction API
         const loginResponse = await login(request, username, password)
         let response_01=await request.get(`https://parabank.parasoft.com/parabank/services/bank/accounts/${sourceAccount}`, {
