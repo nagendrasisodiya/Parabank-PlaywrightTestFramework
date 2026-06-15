@@ -50,7 +50,12 @@ test("Transfer accepted when amount is zero", async ({page, request})=>{
 
     await loginObj.login("https://parabank.parasoft.com", username, password)
     await fundTransferObj.transferFund("0", accountNo_01, accountNo_02)
+
     let msg:string=await fundTransferObj.failureMsg()
+
+    let time=new Date().getTime()
+    await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/fund-transfer-negative-scenerio-UI${time}.png`})
+
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
             type: 'NO BUG',
@@ -70,6 +75,10 @@ test('Transfer accepted when amount is negative', async({page})=>{
     await loginObj.login("https://parabank.parasoft.com", username, password)
     await fundTransferObj.transferFund("-1", accountNo_01, accountNo_02)
     let msg:string=await fundTransferObj.failureMsg()
+
+    let time=new Date().getTime()
+    await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/fund-transfer-negative-scenerio-UI${time}.png`})
+
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
             type: 'NO BUG',
@@ -91,6 +100,10 @@ test('Transfer rejected when amount is non-numeric', async ({page})=>{
     await loginObj.login("https://parabank.parasoft.com", username, password)
     await fundTransferObj.transferFund("X", accountNo_01, accountNo_02)
     let msg:string=await fundTransferObj.failureMsg()
+
+    let time=new Date().getTime()
+    await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/fund-transfer-negative-scenerio-UI${time}.png`})
+
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
             type: 'NO BUG',
@@ -111,4 +124,7 @@ test("Transfer money when source and destination account both are same", async (
     await loginObj.login("https://parabank.parasoft.com", username, password)
     await fundTransferObj.transferFund("100", accountNo_01, accountNo_01)
     await fundTransferObj.transferStatus()
+
+    let time=new Date().getTime()
+    await page.screenshot({path:`D:/CapstoneProject/Parabank/screenshots/fund-transfer-negative-scenerio-UI${time}.png`})
 })
