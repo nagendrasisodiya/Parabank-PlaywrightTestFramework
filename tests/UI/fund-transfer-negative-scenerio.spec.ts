@@ -53,13 +53,13 @@ test("Transfer accepted when amount is zero", async ({page, request})=>{
     let msg:string=await fundTransferObj.failureMsg()
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
-            type: 'BUG CONFIRMED',
-            description: 'bug  present: bank is accepting negative payments.'
+            type: 'NO BUG',
+            description: 'bank is rejecting payments with amount zero.'
         })
     }else {
         test.info().annotations.push({
-            type: 'NO BUG',
-            description: 'bug  present: bank is rejects negative payments.'
+            type: 'BUG CONFIRMED',
+            description: 'bug  present: bank is accepting payments amount as zero.'
         })
     }
 })
@@ -72,19 +72,19 @@ test('Transfer accepted when amount is negative', async({page})=>{
     let msg:string=await fundTransferObj.failureMsg()
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
-            type: 'BUG CONFIRMED',
-            description: 'bug  present: bank is accepting negative payments.'
+            type: 'NO BUG',
+            description: 'bank is rejecting negative payments.'
         })
     }else {
         test.info().annotations.push({
-            type: 'NO BUG',
-            description: 'bug  present: bank is rejects negative payments.'
+            type: 'BUG CONFIRMED',
+            description: 'bug  present: bank is accepting negative payments.'
         })
     }
 
 })
 
-test('Transfer accepted when amount is non-numeric', async ({page})=>{
+test('Transfer rejected when amount is non-numeric', async ({page})=>{
     const loginObj:LoginUser = new LoginUser(page)
     const fundTransferObj:FundTransfer = new FundTransfer(page)
 
@@ -93,13 +93,22 @@ test('Transfer accepted when amount is non-numeric', async ({page})=>{
     let msg:string=await fundTransferObj.failureMsg()
     if(msg==="An internal error has occurred and has been logged."){
         test.info().annotations.push({
-            type: 'BUG CONFIRMED',
-            description: 'bug  present: bank is accepting negative payments.'
+            type: 'NO BUG',
+            description: 'bank is rejecting negative payments.'
         })
     }else {
         test.info().annotations.push({
-            type: 'NO BUG',
-            description: 'bug  present: bank is rejects negative payments.'
+            type: 'BUG CONFIRMED',
+            description: 'bug  present: bank is accepts non-numeric values as amount to transfer.'
         })
     }
+})
+
+test("Transfer money when source and destination account both are same", async ({page})=>{
+    const loginObj:LoginUser = new LoginUser(page)
+    const fundTransferObj:FundTransfer = new FundTransfer(page)
+
+    await loginObj.login("https://parabank.parasoft.com", username, password)
+    await fundTransferObj.transferFund("100", accountNo_01, accountNo_01)
+    await fundTransferObj.transferStatus()
 })

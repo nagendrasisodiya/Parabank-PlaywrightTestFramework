@@ -54,7 +54,11 @@ class LoginUser{
         await this.page.waitForLoadState('domcontentloaded')
     }
     async captureFailureMsg(){
-        await this.page.waitForTimeout(5000)
+        await this.page.waitForLoadState('networkidle')
         return  this.failureMsg.innerText()
+    }
+    async captureSuccessMsg(){
+        await this.page.waitForLoadState('networkidle')
+        return await this.loginSuccessMsg.innerText()
     }
 }export default LoginUser
